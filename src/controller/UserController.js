@@ -2,6 +2,7 @@ class UserController {
   constructor(formId, tableId) {
     this.formEl = document.getElementById(formId)
     this.tableEl = document.getElementById(tableId)
+    this.onSubmit()
   }
 
   onSubmit() {
@@ -69,7 +70,7 @@ class UserController {
       } else {
         user[field.name] = field.value
       }
-      this.onSubmit()
+      //this.onSubmit()
     })
     if (isValid) {
       return new User(
@@ -102,9 +103,15 @@ class UserController {
     <td>${dataUser.admin ? 'Sim' : 'Não'}</td>
     <td>${Utils.dateFormat(dataUser.register)}</td>
     <td>
-      <button type="button" class="btn btn-primary btn-xs btn-flat">Editar</button>
+      <button type="button" class="btn btn-primary btn-edit btn-xs btn-flat">Editar</button>
       <button type="button" class="btn btn-danger btn-xs btn-flat">Excluir</button>
     </td>`
+
+    tr.querySelector('.btn-edit').addEventListener('click', e => {
+      JSON.parse(tr.dataset.user)
+      document.querySelector('#box-user-create').style.display = 'none'
+      document.querySelector('#box-user-update').style.display = 'block'
+    })
 
     this.tableEl.appendChild(tr)
     this.updateCount()
@@ -121,4 +128,3 @@ class UserController {
     document.querySelector('#number-users-asmin').innerHTML = numberAdmin
   }
 }
-JSON.parse

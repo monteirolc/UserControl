@@ -15,7 +15,7 @@ class User {
     return this_name
   }
   set name(value) {
-    this_name.value
+    this_name = value
   }
   //#endregion
 
@@ -24,7 +24,7 @@ class User {
     return this._gender
   }
   setgender(value) {
-    this._gender.value
+    this._gender = value
   }
   //#endregion
 
@@ -33,7 +33,7 @@ class User {
     return this_date
   }
   set date(value) {
-    this_date.value
+    this_date = value
   }
   //#endregion
 
@@ -42,7 +42,7 @@ class User {
     return this_country
   }
   set country(value) {
-    this_country.value
+    this_country = value
   }
   //#endregion
 
@@ -51,8 +51,7 @@ class User {
     return this_email
   }
   set email(value) {
-    this_email.value
-  }
+    this_email. = 
   //#endregion
 
   //#region  password
@@ -60,7 +59,7 @@ class User {
     return this_password
   }
   set password(value) {
-    this_password.value
+    this_password = value
   }
   //#endregion
 
@@ -69,7 +68,7 @@ class User {
     return this_photo
   }
   set photo(value) {
-    this_photo.value
+    this_photo = value
   }
   //#endregion
 
@@ -78,7 +77,7 @@ class User {
     return this_admin
   }
   set admin(value) {
-    this_admin.value
+    this_admin = value
   }
   //#endregion
 }

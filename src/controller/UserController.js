@@ -3,8 +3,18 @@ class UserController {
     this.formEl = document.getElementById(formId)
     this.tableEl = document.getElementById(tableId)
     this.onSubmit()
+    this.onEdit()
   }
 
+  onEdit() {
+    document
+      .querySelector('#box-user-update .btn-cancel')
+      .addEventListener('click', e => {
+        this.showPanelCreate()
+      })
+  }
+
+  //#region finalizados
   onSubmit() {
     this.formEl.addEventListener('submit', e => {
       e.preventDefault()
@@ -13,12 +23,12 @@ class UserController {
       button.disabled = true
 
       let value = this.getValues()
-      if (!value) {
-        return false
-      }
+      if (!value) return false
+
       this.getPhoto().then(
         content => {
           value.photo = content
+          //this.getValues.save()
           this.addLine(value)
           this.formEl.reset()
           button.disabled = false
@@ -70,7 +80,6 @@ class UserController {
       } else {
         user[field.name] = field.value
       }
-      //this.onSubmit()
     })
     if (isValid) {
       return new User(
@@ -88,6 +97,7 @@ class UserController {
     }
   }
 
+  //#endregion
   addLine(dataUser) {
     let tr = document.createElement('tr')
 
@@ -108,14 +118,35 @@ class UserController {
     </td>`
 
     tr.querySelector('.btn-edit').addEventListener('click', e => {
-      JSON.parse(tr.dataset.user)
-      document.querySelector('#box-user-create').style.display = 'none'
-      document.querySelector('#box-user-update').style.display = 'block'
+      let json = JSON.parse(tr.dataset.user)
+      let form = document.querySelector('#form-user-update')
+      for (let name in json) {
+        let field = form.querySelector('[name=' + name.replace('_', '') + ']')
+
+        if (field) {
+          if (field.type == 'file') continue
+          field.value = json[name]
+        }
+      }
+
+      this.showPanelUpdate()
     })
 
     this.tableEl.appendChild(tr)
     this.updateCount()
   }
+
+  showPanelCreate() {
+    document.querySelector('#box-user-create').style.display = 'block'
+    document.querySelector('#box-user-update').style.display = 'none'
+  }
+
+  showPanelUpdate() {
+    document.querySelector('#box-user-create').style.display = 'none'
+    document.querySelector('#box-user-update').style.display = 'block'
+  }
+
+  //#region finalizado
   updateCount() {
     let numberUsers = 0
     let numberAdmin = 0
@@ -125,6 +156,8 @@ class UserController {
       if (user._admin) numberAdmin++
     })
     document.querySelector('#number-users').innerHTML = numberUsers
-    document.querySelector('#number-users-asmin').innerHTML = numberAdmin
+    document.querySelector('#number-users-admin').innerHTML = numberAdmin
   }
+
+  //#endregion
 }

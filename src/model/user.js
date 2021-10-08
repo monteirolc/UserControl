@@ -1,8 +1,8 @@
 class User {
-  constructor(name, gender, date, country, email, password, photo, admin) {
+  constructor(name, gender, register, country, email, password, photo, admin) {
     this._name = name
     this._gender = gender
-    this._date = date
+    this._register = register
     this._country = country
     this._email = email
     this._password = password
@@ -12,72 +12,73 @@ class User {
 
   //#region  Name
   get name() {
-    return this_name
+    return this._name
   }
   set name(value) {
-    this_name = value
+    this._name = value
   }
   //#endregion
 
   //#region gender
-  getgender() {
+  get gender() {
     return this._gender
   }
-  setgender(value) {
+  set gender(value) {
     this._gender = value
   }
   //#endregion
 
   //#region  date
-  get date() {
-    return this_date
+  get register() {
+    return this._register
   }
-  set date(value) {
-    this_date = value
+  set register(value) {
+    this._register = value
   }
   //#endregion
 
   //#region  conutry
   get country() {
-    return this_country
+    return this._country
   }
   set country(value) {
-    this_country = value
+    this._country = value
   }
   //#endregion
 
   //#region  email
   get email() {
-    return this_email
+    return this._email
   }
   set email(value) {
-    this_email. = 
+    this._email = value
+  }
   //#endregion
 
   //#region  password
   get password() {
-    return this_password
+    return this._password
   }
   set password(value) {
-    this_password = value
+    this._password = value
   }
   //#endregion
 
   //#region  photo
   get photo() {
-    return this_photo
+    return this._photo
   }
   set photo(value) {
-    this_photo = value
+    this._photo = value
   }
   //#endregion
 
   //#region  admin
   get admin() {
-    return this_admin
+    return this._admin
   }
   set admin(value) {
-    this_admin = value
+    this._admin = value
   }
   //#endregion
 }

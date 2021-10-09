@@ -1,5 +1,16 @@
 class User {
-  constructor(name, gender, register, country, email, password, photo, admin) {
+  constructor(
+    id,
+    name,
+    gender,
+    register,
+    country,
+    email,
+    password,
+    photo,
+    admin
+  ) {
+    this._id = id
     this._name = name
     this._gender = gender
     this._register = register
@@ -9,6 +20,14 @@ class User {
     this._photo = photo
     this._admin = admin
   }
+  //#region  id
+  get id() {
+    return this._id
+  }
+  set id(values) {
+    this._id = values
+  }
+  //#endregion
 
   //#region  Name
   get name() {
@@ -81,4 +100,63 @@ class User {
     this._admin = value
   }
   //#endregion
+
+  loadFromJSON(json) {
+    for (let name in json) {
+      switch (name) {
+        case '_register':
+          this[name] = new Date(json[name])
+          break
+        default:
+          this[name] = json[name]
+      }
+    }
+  }
+
+  getNewId() {
+    let usersId = localStorage.getItem('userId')
+    if (!usersId > 0) usersId = 0
+    usersId++
+    localStorage.setItem('usersId', usersId)
+    return id
+  }
+
+  save() {
+    let users = User.getUsersStorage()
+
+    if (this.id > 0) {
+      users.map(u => {
+        if (u.id == this.id) {
+          Object.assign(u, this)
+        }
+        return u
+      })
+    } else {
+      this.id = this.getNewId()
+      users.push(this)
+      //sessionStorage.setItem('user',JSON.stringify('users'))
+    }
+    localStorage.setItem('user', JSON.stringify('users'))
+  }
+
+  static getUsersStorage() {
+    let users = []
+
+    //if(sessionStorage.getItem('users')){
+    if (localStorage.getItem('users')) {
+      users = JSON.parse(localStorage.getItem('users'))
+    }
+    return users
+  }
+
+  removeLS() {
+    let users = User.getUsersStorage()
+    users.forEach((userData, index) => {
+      if (this.id == userData.id) {
+        //splice remove um(ou mais) elementos de um array
+        users.splice(index, 1)
+      }
+    })
+    localStorage.setItem('users', JSON.stringify('users'))
+  }
 }
